@@ -19,7 +19,7 @@ async function run(client, interaction) {
         const diceA = randomNum(1, 6);
         const diceB = randomNum(1, 6);
         const diceC = randomNum(1, 6);
-        const diceList = [diceA, diceB, diceC];
+        const dieList = [diceA, diceB, diceC];
         const embed = new MessageEmbed().setColor('#0000FF');
         if(subcommand === 'bigorsmall') {
             const guess = interaction.options.getString('bs');
@@ -46,7 +46,7 @@ async function run(client, interaction) {
             let count = 0;
             const guess = interaction.options.getInteger('num');
             const bets = interaction.options.getInteger('bets');
-            for(const dice of diceList) {
+            for(const dice of dieList) {
                 if(dice === guess) {
                     count++;
                 }
