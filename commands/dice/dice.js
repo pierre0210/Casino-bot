@@ -16,12 +16,13 @@ async function run(client, interaction) {
         await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
     }
     else {
+        const diceA = randomNum(1, 6);
+        const diceB = randomNum(1, 6);
+        const diceC = randomNum(1, 6);
+        const diceList = [diceA, diceB, diceC];
         const embed = new MessageEmbed().setColor('#0000FF');
         if(subcommand === 'bigorsmall') {
             const guess = interaction.options.getString('bs');
-            const diceA = randomNum(1, 6);
-            const diceB = randomNum(1, 6);
-            const diceC = randomNum(1, 6);
             const sum = diceA + diceB + diceC;
             const state = sum > 10 ? '大' : '小';
             if(diceA === diceB && diceB === diceC) {
@@ -42,10 +43,41 @@ async function run(client, interaction) {
             await interaction.reply({ embeds: [embed] });
         }
         else if(subcommand === 'singlenum') {
-            
+            let count = 0;
+            const guess = interaction.options.getInteger('num');
+            const bets = interaction.options.getInteger('bets');
+            for(const dice of diceList) {
+                if(dice === guess) {
+                    count++;
+                }
+            }
+            if(count === 0) {
+                embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
+                    .setDescription(`你輸了! -${bets}`);
+                await CS.updateBalance(interaction.user.id, stats.balance - bets);
+            }
+            else {
+                embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
+                    .setDescription(`你贏了! +${bets}*${count}`);
+                await CS.updateBalance(interaction.user.id, stats.balance + bets * count);
+            }
+            await interaction.reply({ embeds: [embed] });
         }
         else if(subcommand === 'twonum') {
-    
+            const guessA = interaction.options.getInteger('a');
+            const guessB = interaction.options.getInteger('b');
+            const bets = interaction.options.getInteger('bets');
+            if(diceList.includes(guessA) && diceList.includes(guessB)) {
+                embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
+                    .setDescription(`你贏了! +${bets}*6`);
+                await CS.updateBalance(interaction.user.id, stats.balance + bets * 6);
+            }
+            else {
+                embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
+                    .setDescription(`你輸了! -${bets}`);
+                await CS.updateBalance(interaction.user.id, stats.balance - bets);
+            }
+            await interaction.reply({ embeds: [embed] });
         }
     }
 }
