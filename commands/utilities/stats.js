@@ -30,7 +30,7 @@ async function run(client, interaction) {
             .setDescription('初來乍到')
             .addField('使用者名稱：', target.username, true)
             .addField('使用者ID：', target.id, true)
-            .addField('餘額：', CS.initBalance, true);
+            .addField('餘額：', `${CS.initBalance}`, true);
         await interaction.reply({ embeds: [embed] });
     }
 }
