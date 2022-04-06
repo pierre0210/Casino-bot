@@ -8,7 +8,7 @@ async function run(client, interaction) {
     const stats = await CS.getUserStats(interaction.user.id);
     const bets = interaction.options.getInteger('bets');
     const wheel = [0.1, 0.2, 0.3, 0.5, 1.2, 1.5, 1.7, 2.5];
-    const arrow = ['🢇', '🢃', '🢀', '🢄', '🢆', '🢁', '🢂', '🢅'];
+    const arrow = ['↙️', '⬇️', '⬅️', '↖️', '↘️', '⬆️', '➡️', '↗️'];
     if(!stats) {
         await interaction.reply({ content: '請先執行stats指令', ephemeral: true })
     }
