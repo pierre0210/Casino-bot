@@ -11,8 +11,8 @@ class system {
     constructor(guildID) {
         this.user = require('./user.js')(sequelize, Sequelize.DataTypes, guildID);
         this.initBalance = 1000;
-        this.perSign = 200;
-        this.signDuration = 2;
+        this.perSign = 100;
+        this.signDuration = 1;
         this.user.sync();
     }
     async addUser(userID) {

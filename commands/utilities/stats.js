@@ -10,9 +10,9 @@ async function run(client, interaction) {
         const embed = new MessageEmbed().setColor('#0000FF').setTitle('使用者資料')
             .addField('使用者名稱：', target.username, true)
             .addField('使用者ID：', target.id, true)
-        if(Date.now()-stats.sign_time >= CS.signDuration*60*60*1000) {
-            await CS.updateBalance(interaction.user.id, stats.balance + CS.perSign);
-            await CS.updateSignTime(interaction.user.id);
+        if(Date.now()-stats.sign_time >= CS.signDuration*60*60*1000 && target.id === interaction.user.id) {
+            await CS.updateBalance(target.id, stats.balance + CS.perSign);
+            await CS.updateSignTime(target.id);
             embed.addField('餘額：', `${stats.balance + CS.perSign}`, true)
                 .setDescription(`已簽到 +${CS.perSign}，${CS.signDuration}小時後可再次領取獎勵!`);
         }
