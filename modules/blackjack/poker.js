@@ -1,9 +1,6 @@
 class poker{
-	constructor(num, times){
-		this.deck = this.shuffleDeck(this.buildDeck(num), times);
-	}
-	
-	buildDeck(num){
+	constructor() {}
+	buildDeck(num, times){
 		//const symbol = ['spades', 'hearts', 'diamonds', 'clubs'];
 		const symbol = ['\u2660', '\u2665', '\u2666', '\u2663'];
 		const value = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -16,7 +13,7 @@ class poker{
 				}
 			}
 		}
-		return deck;
+		return this.shuffleDeck(deck, times);
 	}
 	shuffleDeck(deck, times){
 		for(let i=0; i<times; i++){
@@ -29,13 +26,35 @@ class poker{
 		}
 		return deck;
 	}
-	drawCard(){
-		let card = this.deck.pop();
-		return card;
-	}
-	getDeckNum(){
-		return this.deck.length;
+}
+
+class pokerUtil {
+	constructor() {}
+	countHandPoint(hand) {
+		let sum = 0;
+		let aceCount = 0;
+		for(const card of hand) {
+			if(card.value === 'J' || card.value === 'Q' || card.value === 'K') {
+				sum += 10;
+			}
+			else if(card.value === 'A') {
+				aceCount++;
+			}
+			else {
+				sum += parseInt(card.value);
+			}
+		}
+		for(let i = 1; i <= aceCount; i++) {
+			if(sum + (aceCount-i) + i*11 > 21) {
+				sum += (aceCount-i-1) + (i-1)*11;
+			}
+			else if(i === aceCount) {
+				sum += aceCount*11;
+			}
+		}
+		return sum;
 	}
 }
 
 module.exports.poker = poker;
+module.exports.pokerUtil = pokerUtil;
