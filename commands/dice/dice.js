@@ -67,7 +67,7 @@ async function run(client, interaction) {
 			const guessA = interaction.options.getInteger('a');
 			const guessB = interaction.options.getInteger('b');
 			const bets = interaction.options.getInteger('bets');
-			if(diceList.includes(guessA) && diceList.includes(guessB)) {
+			if(dieList.includes(guessA) && dieList.includes(guessB)) {
 				embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
 					.setDescription(`你贏了! +${bets}*6`);
 				await CS.updateBalance(interaction.user.id, stats.balance + bets * 6);
