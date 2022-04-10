@@ -10,10 +10,13 @@ async function run(client, interaction) {
 	const bets = interaction.options.getInteger('bets');
 	const subcommand = interaction.options.getSubcommand();
 	if(!stats) {
-		await interaction.reply({ content: '請先執行stats指令', ephemeral: true })
+		await interaction.reply({ content: '請先執行stats指令', ephemeral: true });
 	}
 	else if(stats.balance < bets) {
 		await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
+	}
+	else if(bets < 0) {
+		await interaction.reply({ content: '死仆街', ephemeral: true })
 	}
 	else {
 		const diceA = randomNum(1, 6);

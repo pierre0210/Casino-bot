@@ -15,6 +15,9 @@ async function run(client, interaction) {
 	else if(stats.balance < bets) {
 		await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
 	}
+	else if(bets < 0) {
+		await interaction.reply({ content: '死仆街', ephemeral: true })
+	}
 	else {
 		const pos = randomNum(0, 7);
 		const plate = `【0.5】 【1.5】 【2.5】\n\n【0.3】      ${arrow[pos]}       【1.7】\n\n【0.1】 【0.2】 【1.2】`;
