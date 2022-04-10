@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const { Blackjack } = require('./../../modules/blackjack/bjGame.js');
+const { Blackjack } = require('../../modules/blackjack/bjGame.js');
 const currency = require('../../modules/database/currency.js');
 
 async function run(client, interaction) {

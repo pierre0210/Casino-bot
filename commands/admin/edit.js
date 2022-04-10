@@ -5,10 +5,11 @@ const currency = require('../../modules/database/currency.js');
 async function run(client, interaction) {
 	if(interaction.user.id === '818815468349030420') {
 		const amount = interaction.options.getInteger('amount');
-		const user = interaction.options.getUser('user');
+		const user = interaction.options.getUser('target');
 		const CS = new currency.system(interaction.guild.id);
 		const stats = await CS.getUserStats(user.id);
 		await CS.updateBalance(user.id, stats.balance + amount);
+		await interaction.reply({ content: 'ok', ephemeral: true });
 	}
 	else {
 		await interaction.reply({ content: '死仆街', ephemeral: true });
