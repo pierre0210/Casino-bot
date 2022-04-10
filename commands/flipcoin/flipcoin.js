@@ -15,7 +15,7 @@ async function run(client, interaction) {
 		await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
 	}
 	else if(bets < 0) {
-		await interaction.reply({ content: '死仆街', ephemeral: true })
+		await interaction.reply({ content: '死仆街', ephemeral: true });
 	}
 	else {
 		const coin = ['正面', '反面'];

@@ -11,18 +11,18 @@ async function run(client, interaction) {
 		const targetStats = await CS.getUserStats(target.id);
 		const userStats = await CS.getUserStats(user.id);
 		if(userStats.balance < amount) {
-			await interaction.reply({ content: '餘額不足', ephemeral: true })
+			await interaction.reply({ content: '餘額不足', ephemeral: true });
 		}
 		else if(amount <= 0) {
-			await interaction.reply({ content: '還想鑽漏洞啊', ephemeral: true })
+			await interaction.reply({ content: '還想鑽漏洞啊', ephemeral: true });
 		}
 		else if(target.id === user.id) {
-			await interaction.reply({ content: '這樣算洗錢?', ephemeral: true })
+			await interaction.reply({ content: '這樣算洗錢?', ephemeral: true });
 		}
 		else {
 			await CS.updateBalance(target.id, targetStats.balance + amount);
 			await CS.updateBalance(user.id, userStats.balance - amount);
-			await interaction.reply(`<@${user.id}> **--->${amount}--->** <@${target.id}>`)
+			await interaction.reply(`<@${user.id}> **--->${amount}--->** <@${target.id}>`);
 		}
 	}
 	else {

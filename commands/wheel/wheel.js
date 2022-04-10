@@ -10,13 +10,13 @@ async function run(client, interaction) {
 	const wheel = [0.1, 0.2, 0.3, 0.5, 1.2, 1.5, 1.7, 2.5];
 	const arrow = ['↙️', '⬇️', '⬅️', '↖️', '↘️', '⬆️', '➡️', '↗️'];
 	if(!stats) {
-		await interaction.reply({ content: '請先執行stats指令', ephemeral: true })
+		await interaction.reply({ content: '請先執行stats指令', ephemeral: true });
 	}
 	else if(stats.balance < bets) {
 		await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
 	}
 	else if(bets < 0) {
-		await interaction.reply({ content: '死仆街', ephemeral: true })
+		await interaction.reply({ content: '死仆街', ephemeral: true });
 	}
 	else {
 		const pos = randomNum(0, 7);
