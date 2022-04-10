@@ -6,7 +6,7 @@ const currency = require('../../modules/database/currency.js');
 async function run(client, interaction) {
 	const BJ = new Blackjack(interaction.guild.id);
 	const subcommand = interaction.options.getSubcommand();
-	const pendingTime = 20;
+	const pendingTime = 30;
 	const CS = new currency.system(interaction.guild.id);
 	if(subcommand === 'start') {
 		if(BJ.isGameExist()) {
@@ -31,9 +31,13 @@ async function run(client, interaction) {
 			await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
 		}
 		else if(BJ.isGameExist()) {
-			BJ.addPlayer(interaction.user.id, bets);
-			const joinEmbed = new MessageEmbed().setColor('#0000FF').setDescription(`<@${interaction.user.id}> 加入牌局`);
-			await interaction.reply({ embeds: [joinEmbed] });
+			if(BJ.addPlayer(interaction.user.id, interaction.user.username, bets)) {
+				const joinEmbed = new MessageEmbed().setColor('#0000FF').setDescription(`<@${interaction.user.id}> 加入牌局`);
+				await interaction.reply({ embeds: [joinEmbed] });
+			}
+			else {
+				await interaction.reply({ content: '你已經加入', ephemeral: true });
+			}
 		}
 		else {
 			await interaction.reply({ content: '此群沒有有牌局進行中 輸入`/blackjack start`創建牌局!', ephemeral: true });
