@@ -29,6 +29,20 @@ class Blackjack {
 			if(err) console.log(err);
 		});
 	}
+	printTable(message, turn) {
+		this.gameFile = JSON.parse(fs.readFileSync('./modules/blackjack/game.json', 'utf-8'));
+		const infoEmbed = new MessageEmbed().setColor('#0000FF').setTitle('牌局開始')
+			.setDescription(`<@${this.gameFile[this.guildID].playerList[turn].id}> 的回合`);
+		infoEmbed.addField('Dealer', `${this.gameFile[this.guildID].dealerHand[0].symbol}${this.gameFile[this.guildID].dealerHand[0].value}\n${this.gameFile[this.guildID].dealerHand[1].symbol}${this.gameFile[this.guildID].dealerHand[1].value}`);
+		for(const user of this.gameFile[this.guildID].playerList) {
+			let hand = '';
+			for(const card of user.hand) {
+				hand += card.symbol+card.value+'\n';
+			}
+			infoEmbed.addField(`${user.name}`, `${hand}`);
+		}
+		message.channel.send({ embeds: [infoEmbed] });
+	}
 	startGame(message) {
 		this.gameFile = JSON.parse(fs.readFileSync('./modules/blackjack/game.json', 'utf-8'));
 		if(this.gameFile[this.guildID].playerList === 0) {

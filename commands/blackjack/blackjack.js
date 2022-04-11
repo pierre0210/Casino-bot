@@ -30,6 +30,9 @@ async function run(client, interaction) {
 		if(stats.balance < bets) {
 			await interaction.reply({ content: '賭注不能高過總財產', ephemeral: true });
 		}
+		else if(bets < 0) {
+			await interaction.reply({ content: '還敢出老千啊', ephemeral: true });
+		}
 		else if(BJ.isGameExist()) {
 			if(BJ.addPlayer(interaction.user.id, interaction.user.username, bets)) {
 				const joinEmbed = new MessageEmbed().setColor('#0000FF').setDescription(`<@${interaction.user.id}> 加入牌局`);
