@@ -70,17 +70,21 @@ async function run(client, interaction) {
 			const guessA = interaction.options.getInteger('a');
 			const guessB = interaction.options.getInteger('b');
 			const bets = interaction.options.getInteger('bets');
+			if(guessA === guessB) {
+				await interaction.reply({ content: '兩者不能相同', ephemeral: true })
+			}
 			if(dieList.includes(guessA) && dieList.includes(guessB)) {
 				embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
 					.setDescription(`你贏了! +${bets}*6`);
 				await CS.updateBalance(interaction.user.id, stats.balance + bets * 6);
+				await interaction.reply({ embeds: [embed] });
 			}
 			else {
 				embed.setTitle(`${diceList[diceA-1]} ${diceList[diceB-1]} ${diceList[diceC-1]}`)
 					.setDescription(`你輸了! -${bets}`);
 				await CS.updateBalance(interaction.user.id, stats.balance - bets);
+				await interaction.reply({ embeds: [embed] });
 			}
-			await interaction.reply({ embeds: [embed] });
 		}
 	}
 }
