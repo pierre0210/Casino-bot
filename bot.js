@@ -13,6 +13,7 @@ client.once('ready', () => {
 		const slashCommandFiles = fs.readdirSync(`./commands/${dir}/`).filter(f => f.endsWith(".js"));
 		for(const slash of slashCommandFiles) {
 			let tmp = require(`./commands/${dir}/${slash}`);
+			console.log(tmp);
 			client.commands.set(slash.split(".")[0], tmp);
 		}
 	}

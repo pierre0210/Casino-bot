@@ -13,7 +13,7 @@ async function run(client, interaction) {
 	if(!stats) {
 		await interaction.reply({ content: '請先執行stats指令', ephemeral: true });
 	}
-	else if(await CS.isUserExist(target.id)) {
+	else if(!targetStats) {
 		await interaction.reply({ content: '目標不存在', ephemeral: true });
 	}
 	else if(target.id === interaction.user.id) {
